@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 // import HelloWorldApp from "./HelloWorldApp";
-import FirstApp from "./FirstApp";
+// import FirstApp from "./FirstApp";
+import CounterApp from "./CounterApp";
+
 import "./style.css";
 
 // function App() {
@@ -18,6 +20,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
 	<React.StrictMode>
-		<FirstApp />
+		<CounterApp value={10} />
 	</React.StrictMode>
 );

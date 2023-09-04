@@ -26,6 +26,7 @@ function FirstApp({ title, subTitle = 5, name }) {
 FirstApp.propTypes = {
 	title: PropTypes.string.isRequired,
 	subTitle: PropTypes.number,
+	name: PropTypes.string,
 };
 // Defauls props
 FirstApp.defaultProps = {
