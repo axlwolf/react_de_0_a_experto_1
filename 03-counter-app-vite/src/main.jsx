@@ -18,6 +18,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
 	<React.StrictMode>
-		<FirstApp title="Axel Lanuza Rojas" subTitle={4563} />
+		<FirstApp />
 	</React.StrictMode>
 );
