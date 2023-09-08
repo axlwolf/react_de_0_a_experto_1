@@ -1,4 +1,5 @@
 const apiKey = "PJOmP8plfGdra9RRN9w8i03ZGrMqwTnt";
+import "whatwg-fetch"; // <-- yarn add whatwg-fetch
 
 export const getGifs = async (category) => {
 	const APIURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${category}&limit=10`;
