@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import useForm from "../../hooks/useForm";
+import { useForm } from "../../hooks/useForm";
 
-const TodoAdd = ({ handleNewTodo }) => {
+export const TodoAdd = ({ handleNewTodo }) => {
 	const { description, onInputChange, onResetForm } = useForm({
 		description: "",
 	});
@@ -38,4 +38,4 @@ const TodoAdd = ({ handleNewTodo }) => {
 	);
 };
 
-export default TodoAdd;
+//export default TodoAdd;

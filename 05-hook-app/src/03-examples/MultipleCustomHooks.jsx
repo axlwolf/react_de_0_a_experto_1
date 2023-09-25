@@ -10,8 +10,6 @@ const MultipleCustomHooks = () => {
 		`https://api.gameofthronesquotes.xyz/v1/author/jon/${counter}`
 	);
 
-	console.log(data);
-
 	const { sentence, character } = !!data && data;
 
 	return (

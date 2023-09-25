@@ -8,6 +8,7 @@ const TodoItem = ({ todo, onDeleteTodo, onToggleTodo }) => {
 				className="list-group-item d-flex justify-content-between"
 			>
 				<span
+					aria-label="span"
 					className={`align-self-center ${
 						todo.done ? "text-decoration-line-through" : ""
 					}`}
@@ -16,6 +17,7 @@ const TodoItem = ({ todo, onDeleteTodo, onToggleTodo }) => {
 					{todo.description}
 				</span>
 				<button
+					aria-label="button"
 					className="btn btn-danger"
 					onClick={() => onDeleteTodo(todo.id)}
 					data-id={todo.id}

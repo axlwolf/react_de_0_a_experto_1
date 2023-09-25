@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import TodoList from "./components/TodoList";
-import TodoAdd from "./components/TodoAdd";
+import { TodoAdd } from "./components/TodoAdd";
 import { useTodos } from "../hooks/";
 
 export const TodoApp = () => {

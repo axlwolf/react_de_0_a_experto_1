@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
+import "whatwg-fetch"; // <-- yarn add whatwg-fetch
 
 export const useFetch = (url) => {
 	const [state, setState] = useState({
