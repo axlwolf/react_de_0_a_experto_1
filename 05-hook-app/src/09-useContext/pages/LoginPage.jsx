@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
@@ -9,7 +10,7 @@ export const LoginPage = () => {
 			<h1>LoginPage</h1>
 			<hr />
 
-			<pre>{JSON.stringify(user, null, 3)}</pre>
+			<pre aria-label="pre">{JSON.stringify(user, null, 3)}</pre>
 			<button
 				className="btn btn-primary"
 				onClick={() =>
