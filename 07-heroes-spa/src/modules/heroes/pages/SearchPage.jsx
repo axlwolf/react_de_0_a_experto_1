@@ -1,17 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
-import { useLocation, useNavigate } from "react-router-dom";
-import queryString from "query-string";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+//import queryString from "query-string";
 
 import { useForm } from "../../../hooks/useForm";
 import { HeroCard } from "../components";
 import { getHeroesByName } from "../helpers";
+import { useEffect } from "react";
 
 export const SearchPage = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const [searchParams] = useSearchParams();
 
-	const { q = "" } = queryString.parse(location.search);
+	const { q = "" } = Object.fromEntries([...searchParams]);
 	const heroes = getHeroesByName(q);
 
 	const showSearch = q.length === 0;
@@ -20,6 +22,10 @@ export const SearchPage = () => {
 	const { onInputChange, searchText } = useForm({
 		searchText: q,
 	});
+
+	useEffect(() => {
+		console.log(Object.fromEntries([...searchParams]));
+	}, [searchParams]);
 
 	const onSearchHeroSubmit = (event) => {
 		event.preventDefault();
@@ -37,7 +43,7 @@ export const SearchPage = () => {
 				<div className="col-5">
 					<h4>Searching</h4>
 					<hr />
-					<form onSubmit={onSearchHeroSubmit}>
+					<form aria-label="searchForm" onSubmit={onSearchHeroSubmit}>
 						<input
 							type="text"
 							placeholder="Search a hero"
@@ -71,6 +77,7 @@ export const SearchPage = () => {
 					</div>
 
 					<div
+						aria-label="searchHero"
 						className="alert alert-danger  animate__animated animate__fadeIn"
 						style={{ display: showError ? "" : "none" }}
 					>
