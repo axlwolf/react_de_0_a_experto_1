@@ -1,9 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { useDispatch, useSelector } from "react-redux";
+
 import { AppBar, IconButton, Grid, Toolbar, Typography } from "@mui/material";
 import { MenuOutlined, LogoutOutlined } from "@mui/icons-material";
+import { startLogOut } from "../../../store/auth";
 
-export const NavBar = ({ drawerWidth }) => {
+export const NavBar = ({ drawerWidth = 240 }) => {
+	const dispatch = useDispatch();
+
+	const onLogOut = () => {
+		console.log("Logout");
+		dispatch(startLogOut());
+	};
+
 	return (
 		<AppBar
 			position="fixed"
@@ -29,7 +39,7 @@ export const NavBar = ({ drawerWidth }) => {
 					<Typography variant="h6" noWrap component="div">
 						JournalApp
 					</Typography>
-					<IconButton color="error">
+					<IconButton color="error" onClick={onLogOut}>
 						<LogoutOutlined></LogoutOutlined>
 					</IconButton>
 				</Grid>

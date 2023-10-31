@@ -4,10 +4,13 @@ import { Box, Toolbar } from "@mui/material";
 import { NavBar, SideBar } from "../components";
 
 const drawerWidth = 240;
-Toolbar
+Toolbar;
 export const JournalLayout = ({ children }) => {
 	return (
-		<Box sx={{ display: "flex" }}>
+		<Box
+			sx={{ display: "flex" }}
+			className="animate__animated animate__fadeIn animate__faster"
+		>
 			{/* Navbar */}
 			<NavBar drawerWidth={drawerWidth} />
 			{/* Sidebar or Drawer */}
