@@ -4,6 +4,7 @@ import {
 	registerUserWithEmail,
 	signInWithGoogle,
 } from "../../firebase/providers";
+import { clearNotesOnLogout } from "../journal";
 import { checkingCredentials, login, logout } from "./";
 
 /* eslint-disable no-unused-vars */
@@ -62,7 +63,7 @@ export const startLoginWithEmail = ({ email, password }) => {
 export const startLogOut = () => {
 	return async (dispatch) => {
 		await logoutFirebase();
-
+		dispatch(clearNotesOnLogout());
 		dispatch(logout({}));
 	};
 };

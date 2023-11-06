@@ -46,12 +46,10 @@ export const NoteView = () => {
 
 	const onFileInputChange = ({ target }) => {
 		if (target.files.length === 0) return;
-		console.log(target.files);
-
-		console.log("Uploading files...");
+	
 
 		//TODO: Implement the next dispatch action
-		//dispatch(startUploadingFiles(target.files));
+		dispatch(startUploadingFiles(target.files));
 	};
 
 	return (
@@ -118,7 +116,7 @@ export const NoteView = () => {
 				/>
 			</Grid>
 			{/*  */}
-			<ImageGallery></ImageGallery>
+			<ImageGallery images={activeNote.imageUrls}></ImageGallery>
 		</Grid>
 	);
 };

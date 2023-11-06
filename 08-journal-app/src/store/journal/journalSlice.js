@@ -13,7 +13,7 @@ export const journalSlice = createSlice({
 		// 	title: "",
 		// 	body: "",
 		// 	date: 123456789,
-		// 	iamgeUrls: [],
+		// 	imageUrls: [],
 		// },
 	},
 	reducers: {
@@ -48,6 +48,18 @@ export const journalSlice = createSlice({
 			// TODO: show update message pending
 			state.savedMessage = `${action.payload.title} updated successfully`;
 		},
+		setPhotosToActiveNote: (state, action) => {
+			state.activeNote.imageUrls = [
+				...state.activeNote.imageUrls,
+				...action.payload,
+			];
+		},
+		clearNotesOnLogout: (state) => {
+			state.isSaving = false;
+			state.savedMessage = "";
+			state.activeNote = null;
+			state.notes = null;
+		},
 		deleteNoteById: (state, action) => {},
 		uploadingFiles: (state, action) => {},
 	},
@@ -59,6 +71,8 @@ export const {
 	setNotes,
 	setSaving,
 	updateNote,
+	setPhotosToActiveNote,
 	deleteNoteById,
 	uploadingFiles,
+	clearNotesOnLogout,
 } = journalSlice.actions;
