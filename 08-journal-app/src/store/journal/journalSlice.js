@@ -26,11 +26,30 @@ export const journalSlice = createSlice({
 		},
 		setActiveNote: (state, action) => {
 			state.activeNote = action.payload;
+			state.savedMessage = "";
 		},
-		setNotes: (state, action) => {},
-		setSaving: (state) => {},
-		updateNote: (state, action) => {},
+		setNotes: (state, action) => {
+			state.notes = action.payload;
+		},
+		setSaving: (state) => {
+			state.isSaving = true;
+			// TODO: error message pending
+			state.savedMessage = "";
+		},
+		updateNote: (state, action) => {
+			state.isSaving = false;
+			state.notes = state.notes.map((note) => {
+				if (note.id === action.payload.id) {
+					return action.payload;
+				}
+				return note;
+			});
+
+			// TODO: show update message pending
+			state.savedMessage = `${action.payload.title} updated successfully`;
+		},
 		deleteNoteById: (state, action) => {},
+		uploadingFiles: (state, action) => {},
 	},
 });
 export const {
@@ -41,4 +60,5 @@ export const {
 	setSaving,
 	updateNote,
 	deleteNoteById,
+	uploadingFiles,
 } = journalSlice.actions;
