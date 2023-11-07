@@ -25,7 +25,6 @@ export const SideBarItem = ({ id, title = "", body, date, imageUrls = [] }) => {
 	}, [body]);
 
 	const onActiveteNote = (e) => {
-		console.log(e);
 		const newNote = {
 			id,
 			title,

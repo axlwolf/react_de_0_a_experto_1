@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 
-import { collection, doc, setDoc } from "firebase/firestore/lite";
+import { collection, deleteDoc, doc, setDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
 import {
 	addNewEmptyNote,
+	deleteNoteById,
 	savingNewNote,
 	setActiveNote,
 	setNotes,
@@ -65,9 +66,9 @@ export const startSavingNote = () => {
 
 		delete noteToFireStore.id;
 
-		const docReg = doc(FirebaseDB, `${uid}/journal/notes/${note.id}`);
+		const docRef = doc(FirebaseDB, `${uid}/journal/notes/${note.id}`);
 
-		await setDoc(docReg, noteToFireStore, { merge: true });
+		await setDoc(docRef, noteToFireStore, { merge: true });
 
 		dispatch(updateNote(note));
 	};
@@ -90,5 +91,22 @@ export const startUploadingFiles = (files = []) => {
 		console.log(photosUrls);
 
 		dispatch(setPhotosToActiveNote(photosUrls));
+	};
+};
+
+export const startDeletingNote = () => {
+	return async (dispatch, getState) => {
+		dispatch(setSaving);
+
+		const { uid } = getState().auth;
+		const { activeNote: note } = getState().journal;
+
+		console.log({ uid, note });
+
+		const docRef = doc(FirebaseDB, `${uid}/journal/notes/${note.id}`);
+
+		await deleteDoc(docRef);
+
+		dispatch(deleteNoteById(note.id));
 	};
 };
