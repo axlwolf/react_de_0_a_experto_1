@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 export const fileUpload = async (file) => {
-	if (!file) throw new Error("There's no file to upload");
+	//if (!file) throw new Error("There's no file to upload");
+	if (!file) return null;
 
 	const cloudUrl = "https://api.cloudinary.com/v1_1/ddvgucn7i/upload";
 
@@ -20,7 +21,8 @@ export const fileUpload = async (file) => {
 
 		return cloudResp.secure_url;
 	} catch (error) {
-		console.log(error);
-		throw new Error(error.message);
+		// console.log(error);
+		// throw new Error(error.message);
+		return null;
 	}
 };

@@ -5,6 +5,7 @@ module.exports = {
 	testEnvironment: "jest-environment-jsdom",
 	transformIgnorePatterns: ["node_modules/(?!variables/.*)"],
 	transform: {
-		"^.+\\.jsx?$": "babel-jest",
+		"^.+\\.[t|j]sx?$": "babel-jest",
 	},
+	setupFiles: ["./jest.setup.js"],
 };

@@ -14,6 +14,7 @@ import {
 } from "./journalSlice";
 import { loadNotes } from "../../helpers/loadNotes";
 import { fileUpload } from "../../helpers/fileUpload";
+import "whatwg-fetch"; // <-- yarn add whatwg-fetch
 
 export const startNewNote = () => {
 	return async (dispatch, getState) => {

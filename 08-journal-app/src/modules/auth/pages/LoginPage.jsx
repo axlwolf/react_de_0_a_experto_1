@@ -43,6 +43,7 @@ export const LoginPage = () => {
 	};
 
 	const onGoogleSignIn = () => {
+		console.log("Google Sign In");
 		dispatch(startGoogleSignIn());
 	};
 
@@ -71,6 +72,9 @@ export const LoginPage = () => {
 							placeholder="*****"
 							fullWidth
 							name="password"
+							inputProps={{
+								"data-testid": "password",
+							}}
 							value={password}
 							onChange={onInputChange}
 						></TextField>
@@ -97,6 +101,7 @@ export const LoginPage = () => {
 								sx={{ mt: 2 }}
 								variant="contained"
 								fullWidth
+								aria-label="google-btn"
 								onClick={onGoogleSignIn}
 							>
 								<Google></Google>
