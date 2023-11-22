@@ -39,6 +39,7 @@ export const LoginPage = () => {
 	const onSubmit = (ev) => {
 		ev.preventDefault();
 		// dispatch(checkingAuthentication());
+		console.log({ email, password });
 		dispatch(startLoginWithEmail({ email, password }));
 	};
 
@@ -50,6 +51,7 @@ export const LoginPage = () => {
 	return (
 		<AuthLayout title="Login">
 			<form
+				aria-label="submit-form"
 				onSubmit={onSubmit}
 				className="animate__animated animate__fadeIn animate__faster"
 			>

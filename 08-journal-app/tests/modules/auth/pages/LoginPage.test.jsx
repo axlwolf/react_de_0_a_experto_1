@@ -5,14 +5,26 @@ import { LoginPage } from "../../../../src/modules/auth/pages/LoginPage";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "../../../../src/store/auth";
-import { startGoogleSignIn } from "../../../../src/store/auth/thunks";
+import {
+	startGoogleSignIn,
+	startLoginWithEmail,
+} from "../../../../src/store/auth/thunks";
 import { MemoryRouter } from "react-router-dom";
 import { notAuthenticatedState } from "../../../fixtures/authFixtures";
 
 const mockStartGoogleSignIn = jest.fn();
+const mockStartLoginWithEmail = jest.fn();
 
 jest.mock("../../../../src/store/auth/thunks", () => ({
 	startGoogleSignIn: () => mockStartGoogleSignIn,
+	startLoginWithEmail: ({ email, password }) => {
+		return () => mockStartLoginWithEmail({ email, password });
+	},
+}));
+
+jest.mock("react-redux", () => ({
+	...jest.requireActual("react-redux"),
+	useDispatch: () => (fn) => fn(),
 }));
 
 const store = configureStore({
@@ -25,6 +37,8 @@ const store = configureStore({
 });
 
 describe("<LoginPage/> tests", () => {
+	beforeEach(() => jest.clearAllMocks());
+
 	it("should show the component correctly", () => {
 		render(
 			<Provider store={store}>
@@ -75,6 +89,14 @@ describe("<LoginPage/> tests", () => {
 		const passwordField = screen.getByTestId("password");
 		fireEvent.change(passwordField, {
 			target: { name: "password", value: password },
+		});
+
+		const loginForm = screen.getByLabelText("submit-form");
+		fireEvent.submit(loginForm);
+
+		expect(mockStartLoginWithEmail).toHaveBeenCalledWith({
+			email: email,
+			password: password,
 		});
 	});
 });
