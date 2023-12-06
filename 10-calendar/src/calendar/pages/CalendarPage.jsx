@@ -6,22 +6,26 @@ import { CalendarEventBox, CalendarModal, NavBar } from "../";
 import { addHours } from "date-fns";
 import { getMassagesES, localizer } from "../../helpers";
 import { useState } from "react";
+import { useUiStore, useCalendatStore } from "../../hooks";
 
-const events = [
-	{
-		title: "Boss birthday",
-		notes: "We must buy the cake",
-		start: new Date(),
-		end: addHours(new Date(), 2),
-		bgColor: "#fafafa",
-		user: {
-			_id: "123",
-			name: "Axl Wolf",
-		},
-	},
-];
+// const events = [
+// 	{
+// 		title: "Boss birthday",
+// 		notes: "We must buy the cake",
+// 		start: new Date(),
+// 		end: addHours(new Date(), 2),
+// 		bgColor: "#fafafa",
+// 		user: {
+// 			_id: "123",
+// 			name: "Axl Wolf",
+// 		},
+// 	},
+// ];
 
 export const CalendarPage = () => {
+	const { openDateModal } = useUiStore();
+	const { events } = useCalendatStore();
+
 	const [lastView, setLastView] = useState(
 		localStorage.getItem("lastView") || "week"
 	);
@@ -40,7 +44,7 @@ export const CalendarPage = () => {
 	};
 
 	const onDoubleClick = (event) => {
-		console.log({ doubleClick: event });
+		openDateModal();
 	};
 
 	const onSelect = (event) => {
