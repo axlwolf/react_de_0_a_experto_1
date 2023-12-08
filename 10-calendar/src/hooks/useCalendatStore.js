@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useSelector, useDispatch } from "react-redux";
-import { onAddNewEvent, onSetActiveEvent } from "../store";
+import {
+	onAddNewEvent,
+	onDelenteEvent,
+	onSetActiveEvent,
+	onUpdateEvent,
+} from "../store";
 //import { returnEvents } from "../store";
 
 export const useCalendatStore = () => {
@@ -19,6 +24,7 @@ export const useCalendatStore = () => {
 
 		if (calendarEvent._id) {
 			// Actualizando
+			dispatch(onUpdateEvent({ ...calendarEvent }));
 		} else {
 			dispatch(
 				onAddNewEvent({
@@ -29,12 +35,21 @@ export const useCalendatStore = () => {
 		}
 	};
 
+	const startDeletingEvent = () => {
+		//TODO: llegar al backend
+		dispatch(onDelenteEvent());
+	};
+
 	return {
-		//Properties
+		// * Properties
 
 		activeEvent,
 		events,
-		//Methods
+		hasEventSelected: !!activeEvent,
+
+		// * Methods
+
+		startDeletingEvent,
 		setActiveEvent,
 		startSavingEvent,
 	};
