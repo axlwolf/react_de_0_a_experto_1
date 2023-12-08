@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { addHours, differenceInSeconds } from "date-fns";
 
 import Swal from "sweetalert2";
@@ -8,7 +8,7 @@ import Modal from "react-modal";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import es from "date-fns/locale/es";
-import { useUiStore } from "../../hooks";
+import { useCalendatStore, useUiStore } from "../../hooks";
 
 registerLocale("es", es);
 
@@ -29,6 +29,7 @@ Modal.setAppElement("#root");
 
 export const CalendarModal = () => {
 	const { isDateModalOpen, closeDateModal } = useUiStore();
+	const { activeEvent, startSavingEvent } = useCalendatStore();
 
 	// const [isOpnen, setIsOpnen] = useState(true);
 	const [formSubmitted, setFormSubmitted] = useState(false);
@@ -44,6 +45,12 @@ export const CalendarModal = () => {
 
 		return formValues.title.length > 0 ? "" : "is-invalid";
 	}, [formValues.title, formSubmitted]);
+
+	useEffect(() => {
+		if (activeEvent !== null) {
+			setFormValues({ ...activeEvent });
+		}
+	}, [activeEvent]);
 
 	const onInputChange = ({ target }) => {
 		setFormValues({
@@ -63,7 +70,7 @@ export const CalendarModal = () => {
 		});
 	};
 
-	const onSubmit = (event) => {
+	const onSubmit = async (event) => {
 		event.preventDefault();
 		setFormSubmitted(true);
 
@@ -71,20 +78,14 @@ export const CalendarModal = () => {
 
 		if (isNaN(difference) || difference <= 0) {
 			Swal.fire("Incorrect dates", "Please check start and end dates", "error");
-			console.log("Error on dates");
 			return;
 		}
 
 		if (formValues.title.length <= 0) return;
 
-		console.log(formValues);
-
-		// TODO:
-
-		/*
-			1. Remove screen errors
-			2. Close modal
-		*/
+		await startSavingEvent(formValues);
+		closeDateModal();
+		setFormSubmitted(false);
 	};
 
 	return (
