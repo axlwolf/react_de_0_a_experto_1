@@ -24,6 +24,7 @@ app.use(express.json());
 app.use("/api/auth", require("./routes/auth"));
 
 /* TODO: CRUD: Calendar events*/
+app.use("/api/events", require("./routes/events"));
 
 // Listen on port
 app.listen(process.env.PORT, (err, res) => {

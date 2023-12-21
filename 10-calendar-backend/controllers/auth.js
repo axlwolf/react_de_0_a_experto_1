@@ -8,7 +8,6 @@ const createUser = async (req, res = response) => {
 
 	try {
 		let usr = await User.findOne({ email: email });
-		console.log(usr);
 
 		if (usr) {
 			return res.status(400).json({
@@ -34,7 +33,6 @@ const createUser = async (req, res = response) => {
 			token,
 		});
 	} catch (error) {
-		console.log(error);
 		res.status(500).json({
 			ok: false,
 			msg: "Please talk with your administrator",
@@ -47,7 +45,6 @@ const loginUser = async (req, res = response) => {
 
 	try {
 		const usr = await User.findOne({ email: email });
-		console.log(usr);
 
 		if (!usr) {
 			return res.status(400).json({
@@ -77,7 +74,6 @@ const loginUser = async (req, res = response) => {
 			token,
 		});
 	} catch (error) {
-		console.log(error);
 		res.status(500).json({
 			ok: false,
 			msg: "Please talk with your administrator",
