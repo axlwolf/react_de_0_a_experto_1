@@ -53,7 +53,7 @@ const loginUser = async (req, res = response) => {
 			});
 		}
 
-		//Confirm user
+		//Confirm password
 
 		const validPassword = bcrypt.compareSync(password, usr.password);
 

@@ -96,7 +96,7 @@ const deleteEvent = async (req, res = response) => {
 			});
 		}
 
-		await Event.findOneAndDelete(uid);
+		await Event.findOneAndDelete(eventId);
 
 		res.json({
 			ok: true,
