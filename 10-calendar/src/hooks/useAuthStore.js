@@ -24,12 +24,60 @@ export const useAuthStore = () => {
 		}
 	};
 
+	// TODO: startRegister
+	const startRegister = async ({ email, password, name }) => {
+		dispatch(onChecking());
+		try {
+			const { data } = await calendarApi.post("/auth/new", {
+				email,
+				password,
+				name,
+			});
+			console.log({ data });
+			localStorage.setItem("token", data.token);
+			localStorage.setItem("tokenInitDate", new Date().getTime());
+			dispatch(onLogin({ name: data.name, uid: data.uid }));
+		} catch (error) {
+			console.log(error);
+			dispatch(onLogout(error.response.data?.msg || "--"));
+			setTimeout(() => {
+				dispatch(clearErrorMessage());
+			}, 10);
+		}
+	};
+
+	const checkAuthToken = async () => {
+		const token = localStorage.getItem("token");
+
+		if (!token) return dispatch(onLogout());
+
+		try {
+			const { data } = await calendarApi.get("auth/renew");
+			console.log(data);
+			localStorage.setItem("token", data.token);
+			localStorage.setItem("tokenInitDate", new Date().getTime());
+			dispatch(onLogin({ name: data.name, uid: data.uid }));
+		} catch (error) {
+			console.log(error);
+			localStorage.clear();
+			dispatch(onLogout());
+		}
+	};
+
+	const startLogout = () => {
+		localStorage.clear();
+		dispatch(onLogout());
+	};
+
 	return {
 		//* Properties
 		status,
 		user,
 		errorMessage,
 		//* Methods
+		checkAuthToken,
 		startLogin,
+		startLogout,
+		startRegister,
 	};
 };
