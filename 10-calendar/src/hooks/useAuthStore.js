@@ -11,12 +11,10 @@ export const useAuthStore = () => {
 		dispatch(onChecking());
 		try {
 			const { data } = await calendarApi.post("/auth", { email, password });
-			console.log({ data });
 			localStorage.setItem("token", data.token);
 			localStorage.setItem("tokenInitDate", new Date().getTime());
 			dispatch(onLogin({ name: data.name, uid: data.uid }));
 		} catch (error) {
-			console.log(error);
 			dispatch(onLogout("Incorrect Credentials"));
 			setTimeout(() => {
 				dispatch(clearErrorMessage());
@@ -33,7 +31,6 @@ export const useAuthStore = () => {
 				password,
 				name,
 			});
-			console.log({ data });
 			localStorage.setItem("token", data.token);
 			localStorage.setItem("tokenInitDate", new Date().getTime());
 			dispatch(onLogin({ name: data.name, uid: data.uid }));
@@ -53,7 +50,6 @@ export const useAuthStore = () => {
 
 		try {
 			const { data } = await calendarApi.get("auth/renew");
-			console.log(data);
 			localStorage.setItem("token", data.token);
 			localStorage.setItem("tokenInitDate", new Date().getTime());
 			dispatch(onLogin({ name: data.name, uid: data.uid }));
