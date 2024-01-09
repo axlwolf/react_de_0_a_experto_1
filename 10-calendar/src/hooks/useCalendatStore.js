@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -56,6 +57,7 @@ export const useCalendatStore = () => {
 		try {
 			const { data } = await calendarApi.get("/events");
 			const events = convertEventsToDateEvents(data.events);
+			console.log(events);
 			dispatch(onLoadEvents(events));
 		} catch (error) {
 			console.log("Loading event error...");
@@ -63,9 +65,21 @@ export const useCalendatStore = () => {
 		}
 	};
 
-	const startDeletingEvent = () => {
-		//TODO: llegar al backend
-		dispatch(onDelenteEvent());
+	const startDeletingEvent = async () => {
+		try {
+			// Updateing event
+			console.log(activeEvent.id);
+			await calendarApi.delete(`/events/${activeEvent.id}`);
+			console.log(activeEvent.id);
+			dispatch(onDelenteEvent());
+		} catch (error) {
+			console.log(error);
+			Swal.fire(
+				"Error while deleting an event",
+				error.response.data?.msg,
+				"error"
+			);
+		}
 	};
 
 	return {

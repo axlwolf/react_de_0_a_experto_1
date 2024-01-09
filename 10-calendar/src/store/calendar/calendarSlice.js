@@ -59,6 +59,11 @@ export const calendarSlice = createSlice({
 				}
 			});
 		},
+		onLogoutCalendar: (state) => {
+			state.isLoadingEvents = true;
+			state.events = [];
+			state.activeEvent = null;
+		},
 	},
 });
 
@@ -68,4 +73,5 @@ export const {
 	onUpdateEvent,
 	onDelenteEvent,
 	onLoadEvents,
+	onLogoutCalendar,
 } = calendarSlice.actions;
