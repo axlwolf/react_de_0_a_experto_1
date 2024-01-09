@@ -6,7 +6,7 @@ import { store } from "./store";
 export const CalendarApp = () => {
 	return (
 		<Provider store={store}>
-			<BrowserRouter>
+			<BrowserRouter basename={import.meta.env.DEV ? "/" : "/10-calendar/"}>
 				<AppRouter />
 			</BrowserRouter>
 		</Provider>
