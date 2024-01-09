@@ -26,6 +26,10 @@ app.use("/api/auth", require("./routes/auth"));
 /* TODO: CRUD: Calendar events*/
 app.use("/api/events", require("./routes/events"));
 
+app.get("*", (req, res) => {
+	res.sendFile(__dirname + "/public/index.html");
+});
+
 // Listen on port
 app.listen(process.env.PORT, (err, res) => {
 	console.log(`Server running on port ${process.env.PORT}`);
